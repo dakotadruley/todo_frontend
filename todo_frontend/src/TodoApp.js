@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import AddTodo from './AddTodo.js';
+import DeleteTodo from './DeleteTodo.js';
 import request from 'superagent';
 
 export default class TodoApp extends Component {
@@ -7,7 +8,7 @@ export default class TodoApp extends Component {
 
     componentDidMount = async () => {
         const user = JSON.parse(localStorage.getItem('user'));
-        const todos = await request.get(`https://agile-bastion-07503.herokuapp.com:${process.env.REACT_APP_BACK_END_PORT}/api/todos`)
+        const todos = await request.get(`https://agile-bastion-07503.herokuapp.com/api/todos`)
             .set('Authorization', user.token);
         
         this.setState({ todos: todos.body })
@@ -25,7 +26,17 @@ export default class TodoApp extends Component {
         const newTodos = [...this.state.todos, newTodo];
 
         this.setState({ todos: newTodos });
-        const data = await request.post(`https://agile-bastion-07503.herokuapp.com:${process.env.REACT_APP_BACK_END_PORT}/api/todos`, {
+        const data = await request.post(`https://agile-bastion-07503.herokuapp.com/api/todos`, {
+            task: this.state.todoInput
+        })
+            .set('Authorization', user.token);
+    }
+
+    handleDELETEClick = async (todo) => {
+
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        const data = await request.delete(`https://agile-bastion-07503.herokuapp.com/api/todos/${todo.id}`, {
             task: this.state.todoInput
         })
             .set('Authorization', user.token);
@@ -37,16 +48,18 @@ export default class TodoApp extends Component {
         if (localStorage.getItem('user')) {
             return (
                 <>
-                <h2>{JSON.parse(localStorage.getItem('user')).email}</h2>
+                <h3>Welcome, {JSON.parse(localStorage.getItem('user')).email}</h3>
                 <AddTodo
                 todoInput={ this.state.todoInput }
                 handleClick={ this.handleClick }
                 handleInput={ this.handleInput } />
-                
 
+                
+                
                 {
                     this.state.todos.map((todo) => 
-                    <p style={{
+                    <span>
+                    <p className='todos' style={{
                         textDecoration: todo.complete ? 'line-through' : 'none'
                     }}
                     onClick={async () => {
@@ -57,11 +70,15 @@ export default class TodoApp extends Component {
                         const user = JSON.parse(localStorage.getItem('user'));
 
                         this.setState({ todos: newTodos });
-                        const data = await request.put(`https://agile-bastion-07503.herokuapp.com:${process.env.REACT_APP_BACK_END_PORT}/api/todos/${todo.id}`, matchingTodo)
+                        const data = await request.put(`https://agile-bastion-07503.herokuapp.com/api/todos/${todo.id}`, matchingTodo)
                         .set('Authorization', user.token);
                         }} key={todo.id}>
                             {todo.task}
-                        </p>)
+                            
+                        </p>
+                        <DeleteTodo handleDELETEClick={ this.handleDELETEClick } todo={todo} />
+                        </span>
+                        )
                 }
                 </>
             )

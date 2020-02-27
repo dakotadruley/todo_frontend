@@ -16,6 +16,8 @@ export default class Login extends Component {
         })
 
         localStorage.setItem('user', JSON.stringify(signUp.body));
+
+        this.props.history.push('/');
     }
 
     handleSignIn = async () => {
@@ -25,6 +27,8 @@ export default class Login extends Component {
         })
 
         localStorage.setItem('user', JSON.stringify(signIn.body));
+        
+        this.props.history.push('/');
     }
 
     render() {

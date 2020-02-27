@@ -5,7 +5,7 @@ export default class AddTodo extends Component {
         return (
             <div className='addToDoDiv'>
                 <input value={ this.props.todoInput } onChange={ this.props.handleInput } />
-                <button onClick={ this.props.handleClick }>Add a Todo</button>
+                <button className='button' onClick={ this.props.handleClick }>Add</button>
             </div>
         )
     }

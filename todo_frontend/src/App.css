@@ -4,7 +4,8 @@ body {
 }
 
 h1 {
-  text-align: center;
+  text-align: left;
+  margin-left: 1em;
 }
 
 .signUp {
@@ -39,4 +40,17 @@ h1 {
   margin: 1em;
   background-color: black;
   color: white;
+}
+
+h3 {
+  margin-left: 1em;
+}
+
+.addToDoDiv {
+  margin-left: 1em;
+}
+
+.todos {
+  margin-left: 1em;
+  
 }
