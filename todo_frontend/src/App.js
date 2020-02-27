@@ -17,7 +17,7 @@ export default class App extends Component {
             <div>
                 <h1>Todo List</h1>
                 <BrowserRouter>
-                    <Route path='/' render={() =>
+                    <Route exact path='/' render={() =>
                         isLoggedIn()
                         ? <TodoApp />
                         : <Redirect to='login' />
