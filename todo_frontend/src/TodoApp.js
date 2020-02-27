@@ -42,11 +42,28 @@ export default class TodoApp extends Component {
                 todoInput={ this.state.todoInput }
                 handleClick={ this.handleClick }
                 handleInput={ this.handleInput } />
-                </>
+                
 
                 {
-                    this.state.todos.map((todo) => )
+                    this.state.todos.map((todo) => 
+                    <p style={{
+                        textDecoration: todo.complete ? 'line-through' : 'none'
+                    }}
+                    onClick={async () => {
+                        const newTodos = this.state.todos.slice();
+                        const matchingTodo = newTodos.find((thisTodo) => todo.id === thisTodo.id);
+
+                        matchingTodo.complete = !todo.complete
+                        const user = JSON.parse(localStorage.getItem('user'));
+
+                        this.setState({ todos: newTodos });
+                        const data = await request.put(`https://agile-bastion-07503.herokuapp.com:${process.env.REACT_APP_BACK_END_PORT}/api/todos/${todo.id}`, matchingTodo)
+                        .set('Authorization', user.token);
+                        }} key={todo.id}>
+                            {todo.task}
+                        </p>)
                 }
+                </>
             )
         }
     }
