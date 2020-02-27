@@ -29,16 +29,28 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div>
-                <input value={ this.state.usernameSignUp} onChange={(e) => this.setState({ usernameSignUp: e.target.value})} />
-                <input value={ this.state.passwordSignUp} onChange={(e) => this.setState({ passwordSignUp: e.target.value})} />
+            <div className='login'>
+                <section className='signUp'>
+                    <label className='username'>Username/Email:
+                    <input value={ this.state.usernameSignUp} onChange={(e) => this.setState({ usernameSignUp: e.target.value})} />
+                    </label>
+                    <label className='password'>Password:
+                    <input value={ this.state.passwordSignUp} onChange={(e) => this.setState({ passwordSignUp: e.target.value})} />
+                    </label>
 
-                <button onClick={ this.handleSignUp }>Sign up</button>  
-                <br/>
-                <input value={ this.state.usernameSignIn} onChange={(e) => this.setState({ usernameSignIn: e.target.value})} />
-                <input value={ this.state.passwordSignIn} onChange={(e) => this.setState({ passwordSignIn: e.target.value})} />
+                    <button className='button' onClick={ this.handleSignUp }>Sign up</button>  
+                </section>
 
-                <button onClick={this.handleSignIn}>Sign in</button>  
+                <section className='signIn'>
+                    <label className='username'>Username/Email:
+                    <input value={ this.state.usernameSignIn} onChange={(e) => this.setState({ usernameSignIn: e.target.value})} />
+                    </label>
+                    <label className='password'>Password:
+                    <input value={ this.state.passwordSignIn} onChange={(e) => this.setState({ passwordSignIn: e.target.value})} />
+                    </label>
+
+                    <button className='button' onClick={this.handleSignIn}>Sign in</button>  
+                </section>
             </div>
         )
     }
